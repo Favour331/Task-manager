@@ -1,0 +1,56 @@
+{% extends 'base.html'%}
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/base.css')}}">
+    <div class="main">
+        <a href="/add_task" onclick="add_item()">➕add task</a>
+        <div id="mains">
+            {% if not records %}
+                <h3>Empty tasks</h3>
+            {% else %}
+            <div class="table">
+                <table>
+                    <th>Status</th>
+                    <th>Task Name</th>
+                    <th>Description</th>
+                    <th>done</th>
+                    <th>Action</th>
+                {% for row in records %}
+                    <tr id="row">
+                        <td>{{ row[3] }}</td>
+                        <td>{{ row[2] }}</td>
+                        <td>{{ row[4] }}</td>
+                        <td>
+                            <div style="display: flex;">
+                                <input type="checkbox" class="cross-toggle" style="margin-right: 10px;" data-task-id="{{ row[0] }}" {% if row[2] == 'Completed' %}checked{% endif %}>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="/edit_task/{{ row[0] }}" style="background: rgb(133, 133, 30);font-weight: 700;margin-right: 2cm;" {% if row[2] == 'Completed' %}disabled onclick="return false;" style="pointer-events:none;opacity:0.5;background:gray;"{% endif %}>edit</a>
+                            <a href="/delete_task/{{ row[0] }}" style="margin-right: 5mm;background: red;">🗑️</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </table>
+            </div>
+                {% for row in records %}
+                    <div class="card">
+                        <div class="fess">
+                            <div style="display: flex;">
+                                <input type="checkbox" class="cross-toggle" style="margin-right: 10px;" data-task-id="{{ row[0] }}" {% if row[2] == 'Completed' %}checked{% endif %}>
+                                <h3 class="crossable" style="margin-right: 10px;{{ 'text-decoration: line-through;' if row[2] == 'Completed' else '' }}">{{ row[2] }}</h3>
+                            </div>
+                            <div class="infess" style="justify-content: space-between;">
+                                <a href="/delete_task/{{ row[0] }}" style="margin-left: 5mm;background: red;">🗑️</a>
+                                <a href="/edit_task/{{ row[0] }}" style="background: rgb(133, 133, 30);font-weight: 700;" {% if row[2] == 'Completed' %}disabled onclick="return false;" style="pointer-events:none;opacity:0.5;background:gray;"{% endif %}>edit</a>
+                            </div>
+                        </div>
+                        <div class="secfess" style="margin-left: 1cm;">
+                            <label for="decr" style='color: black;font-size: 4.5mm;font-weight: 700;'>Description</label>
+                            <h4 class="crossable" style="font-size: 5mm;font-weight: 700;{{ 'text-decoration: line-through;' if row[2] == 'Completed' else '' }}">{{ row[4] }}</h4>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    <script src="{{url_for('static', filename='js/body.js')}}"></script>
+{% endblock %}

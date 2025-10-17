@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/base.css')}}">
+</head>
+<body>
+    <header>
+        <h2>Organizo</h2>
+        <nav id="nav">
+            <button onclick="press()">❄️</button>
+        </nav>
+        <nav id="navi">
+            <ul>
+                <li><a href="/dash">Dashboard</a></li>
+                <li><a href="/task">My Tasks</a></li>
+                <li><a href="/log_out">Log Out</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="content" id="content">
+        <div class="incontent">
+            <a href="/dash">Dashboard</a>
+            <a href="/task">My Tasks</a>
+        </div>
+        <div class="intent">
+            <a href="/log_out">Log Out</a>
+        </div>
+    </div>
+    {% block content %}{% endblock %}
+    <script>
+        function press(){
+            var get = document.getElementById('content');
+            if (get.style.display == 'none'){
+                get.style.display = 'grid';
+            }
+            else{
+                get.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

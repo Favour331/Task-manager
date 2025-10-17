@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/add_task.css')}}">
+        <div class="mainer">
+            <h2>Edit Task</h2>
+            <form action="/edit_item" id="mainer" method="POST">
+                <input type="hidden" name="id" value="{{ record[0] }}">
+                <div class="inform">
+                    <label for="name">Title</label>
+                    <input type="text" name="name" placeholder="{{ record[2] }}" required>
+                </div>
+                <div class="inform">
+                    <label for="comment">Description</label>
+                    <textarea name="comment" id="comment" placeholder="{{ record[4] }}" required></textarea>
+                </div>
+                <button type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
