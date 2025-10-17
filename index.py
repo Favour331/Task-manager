@@ -96,7 +96,8 @@ def add_item():
         mydb3.commit()
         cut3.close()
         mydb3.close()
-    # Fetch updated records
+        return redirect(url_for('index'))
+    # For GET requests, show dashboard
     mydb = mysql.connector.connect(host='localhost', user='root', passwd='', database='task_manager')
     cut = mydb.cursor()
     cut.execute("SELECT * FROM tasks")

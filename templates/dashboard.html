@@ -16,16 +16,16 @@
                     <th>Action</th>
                 {% for row in records %}
                     <tr id="row">
-                        <td>{{ row[3] }}</td>
-                        <td>{{ row[2] }}</td>
-                        <td>{{ row[4] }}</td>
+                        <td><span class="status-text">{{ row[3] }}</span></td>
+                        <td><span class="crossable">{{ row[2] }}</span></td>
+                        <td><span class="crossable">{{ row[4] }}</span></td>
                         <td>
                             <div style="display: flex;">
-                                <input type="checkbox" class="cross-toggle" style="margin-right: 10px;" data-task-id="{{ row[0] }}" {% if row[2] == 'Completed' %}checked{% endif %}>
+                                <input type="checkbox" class="cross-toggle" style="margin-right: 10px;" data-task-id="{{ row[0] }}" {% if row[3] == 'Completed' %}checked{% endif %}>
                             </div>
                         </td>
                         <td>
-                            <a href="/edit_task/{{ row[0] }}" style="background: rgb(133, 133, 30);font-weight: 700;margin-right: 2cm;" {% if row[2] == 'Completed' %}disabled onclick="return false;" style="pointer-events:none;opacity:0.5;background:gray;"{% endif %}>edit</a>
+                            <a href="/edit_task/{{ row[0] }}" style="background: rgb(133, 133, 30);font-weight: 700;margin-right: 2cm;" {% if row[3] == 'Completed' %}disabled onclick="return false;" style="pointer-events:none;opacity:0.5;background:gray;"{% endif %}>edit</a>
                             <a href="/delete_task/{{ row[0] }}" style="margin-right: 5mm;background: red;">🗑️</a>
                         </td>
                     </tr>
@@ -35,18 +35,19 @@
                 {% for row in records %}
                     <div class="card">
                         <div class="fess">
-                            <div style="display: flex;">
-                                <input type="checkbox" class="cross-toggle" style="margin-right: 10px;" data-task-id="{{ row[0] }}" {% if row[2] == 'Completed' %}checked{% endif %}>
-                                <h3 class="crossable" style="margin-right: 10px;{{ 'text-decoration: line-through;' if row[2] == 'Completed' else '' }}">{{ row[2] }}</h3>
+                            <div style="display: flex;align-items:center;">
+                                <input type="checkbox" class="cross-toggle" style="margin-right: 10px;" data-task-id="{{ row[0] }}" {% if row[3] == 'Completed' %}checked{% endif %}>
+                                <span class="status-text" style="margin-right:8px;">{{ row[3] }}</span>
+                                <h3 class="crossable" style="margin-right: 10px;{{ 'text-decoration: line-through;' if row[3] == 'Completed' else '' }}">{{ row[2] }}</h3>
                             </div>
                             <div class="infess" style="justify-content: space-between;">
                                 <a href="/delete_task/{{ row[0] }}" style="margin-left: 5mm;background: red;">🗑️</a>
-                                <a href="/edit_task/{{ row[0] }}" style="background: rgb(133, 133, 30);font-weight: 700;" {% if row[2] == 'Completed' %}disabled onclick="return false;" style="pointer-events:none;opacity:0.5;background:gray;"{% endif %}>edit</a>
+                                <a href="/edit_task/{{ row[0] }}" style="background: rgb(133, 133, 30);font-weight: 700;" {% if row[3] == 'Completed' %}disabled onclick="return false;" style="pointer-events:none;opacity:0.5;background:gray;"{% endif %}>edit</a>
                             </div>
                         </div>
                         <div class="secfess" style="margin-left: 1cm;">
                             <label for="decr" style='color: black;font-size: 4.5mm;font-weight: 700;'>Description</label>
-                            <h4 class="crossable" style="font-size: 5mm;font-weight: 700;{{ 'text-decoration: line-through;' if row[2] == 'Completed' else '' }}">{{ row[4] }}</h4>
+                            <h4 class="crossable" style="font-size: 5mm;font-weight: 700;{{ 'text-decoration: line-through;' if row[3] == 'Completed' else '' }}">{{ row[4] }}</h4>
                         </div>
                     </div>
                 {% endfor %}
